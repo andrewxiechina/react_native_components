@@ -2,17 +2,16 @@ import React from 'react';
 import {
   Button,
   ScrollView,
-  View,
   Text,
 } from 'react-native';
 import {
-  StackNavigator,
   TabNavigator
 } from 'react-navigation';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import SampleText from './SampleText';
 
+////////////////////////////////////////////////////////////
+// For demo purpose only
+////////////////////////////////////////////////////////////
 const MyHomeScreen = ({ navigation }) => (
   <ScrollView>
     <Text>Home Screen</Text>
