@@ -1,150 +1,120 @@
-/**
- * @flow
- */
-
 import React from 'react';
-import { Button, ScrollView } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import {
+  Button,
+  ScrollView,
+  View,
+  Text,
+} from 'react-native';
+import {
+  StackNavigator,
+  TabNavigator
+} from 'react-navigation';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SampleText from './SampleText';
 
-const MyNavScreen = ({ navigation, banner }) => (
+const MyHomeScreen = ({ navigation }) => (
   <ScrollView>
-    <SampleText>{banner}</SampleText>
+    <Text>Home Screen</Text>
     <Button
-      onPress={() => navigation.navigate('Profile', { name: 'Jordan' })}
-      title="Open profile screen"
-    />
-    <Button
-      onPress={() => navigation.navigate('NotifSettings')}
-      title="Open notifications screen"
-    />
-    <Button
-      onPress={() => navigation.navigate('SettingsTab')}
+      onPress={() => navigation.navigate('Settings')}
       title="Go to settings tab"
     />
     <Button onPress={() => navigation.goBack(null)} title="Go back" />
   </ScrollView>
 );
 
-const MyHomeScreen = ({ navigation }) => (
-  <MyNavScreen banner="Home Screen" navigation={navigation} />
-);
+////////////////////////////////////////////////////////////
+// CONFIGURATION HERE
+////////////////////////////////////////////////////////////
 
-const MyProfileScreen = ({ navigation }) => (
-  <MyNavScreen
-    banner={`${navigation.state.params.name}s Profile`}
-    navigation={navigation}
-  />
-);
-
-const MyNotificationsSettingsScreen = ({ navigation }) => (
-  <MyNavScreen banner="Notifications Screen" navigation={navigation} />
-);
-
-const MySettingsScreen = ({ navigation }) => (
-  <MyNavScreen banner="Settings Screen" navigation={navigation} />
-);
-
-const TabNav = TabNavigator(
-  {
-    MainTab: {
-      screen: MyHomeScreen,
-      path: '/',
-      navigationOptions: {
-        title: 'Welcome',
-        tabBarLabel: 'Transaction',
-        tabBarIcon: ({ tintColor, focused }) => (
-          <Ionicons
-            name='ios-leaf'
-            size={26}
-            style={{ color: tintColor }}
-          />
-        ),
-      },
-    },
-    SecondTab: {
-      screen: MyHomeScreen,
-      path: '/',
-      navigationOptions: {
-        title: 'Welcome',
-        tabBarLabel: 'Transaction',
-        tabBarIcon: ({ tintColor, focused }) => (
-          <Ionicons
-            name='logo-javascript'
-            size={26}
-            style={{ color: tintColor }}
-          />
-        ),
-      },
-    },
-    ThirdTab: {
-      screen: MyHomeScreen,
-      path: '/',
-      navigationOptions: {
-        title: 'Welcome',
-        tabBarLabel: 'Transaction',
-        tabBarIcon: ({ tintColor, focused }) => (
-          <Ionicons
-            name='logo-chrome'
-            size={26}
-            style={{ color: tintColor }}
-          />
-        ),
-      },
-    },
-    SettingsTab: {
-      screen: MySettingsScreen,
-      path: '/settings',
-      navigationOptions: {
-        title: 'Settings',
-        tabBarIcon: ({ tintColor, focused }) => (
-          <Ionicons
-            name='ios-settings'
-            size={30}
-            style={{ color: 'white' }}
-          />
-        ),
-      },
-    },
+//Routing for the tab
+var config = {
+  "Home": {
+    screen: MyHomeScreen,
+    path: '/',
+    icon: 'ios-leaf',
   },
-  {
-    tabBarPosition: 'bottom',
-    animationEnabled: true,
-    swipeEnabled: true,
-    tabBarOptions: {
-      activeTintColor: 'white',
-      inactiveTintColor: 'white',
-      activeBackgroundColor: '#006600',
-      inactiveBackgroundColor: '#339900',
-      labelStyle: {
-        fontSize: 12,
-      },
-      style: {
-      },
-    },
-
+  "Transaction": {
+    screen: MyHomeScreen,
+    path: '/',
+    icon: 'logo-buffer',
+  },
+  "School": {
+    screen: MyHomeScreen,
+    path: '/',
+    icon: 'md-school',
+  },
+  "Settings": {
+    screen: MyHomeScreen,
+    path: '/',
+    icon: 'md-settings',
   }
-);
+};
 
-const StacksOverTabs = StackNavigator({
-  Root: {
-    screen: TabNav,
-  },
-  NotifSettings: {
-    screen: MyNotificationsSettingsScreen,
-    navigationOptions: {
-      title: 'Notifications',
+var styles ={
+  tabBarPosition: 'bottom',
+  animationEnabled: true,
+  swipeEnabled: true,
+  lazy: false,
+  //initialRouteName:
+  //order: []
+  //paths: []
+  tabBarOptions: {
+    activeTintColor: 'white',
+    inactiveTintColor: 'white',
+    activeBackgroundColor: '#006600',
+    inactiveBackgroundColor: '#339900',
+    showIcon: true,
+    showLabel: true,
+    labelStyle: {
+      fontSize: 12,
     },
-  },
-  Profile: {
-    screen: MyProfileScreen,
-    path: '/people/:name',
-    navigationOptions: ({ navigation }) => {
-      title: `${navigation.state.params.name}'s Profile!`;
-    },
-  },
-});
+    style: {
 
-export default StacksOverTabs;
+    },
+    indicatorStyle: {
+
+    },
+    labelStyle:{
+
+    },
+    tabStyle: {
+
+    },
+    iconStyle: {
+
+    }
+  },
+};
+
+////////////////////////////////////////////////////////////
+// Main Program
+////////////////////////////////////////////////////////////
+const renderTabNav = () => {
+  var obj = {};
+  Object.keys(config).map((key,index) => {
+    var item = config[key];
+    obj[key] =  {
+      screen: item.screen,
+      path: item.path,
+      navigationOptions: {
+        title: key,
+        tabBarLabel: key,
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name={item.icon}
+            size={30}
+            style={{ color: tintColor }}
+          />
+        ),
+      },
+    }
+  });
+  return obj;
+}
+
+const ReversedTabs = TabNavigator((renderTabNav()), styles);
+
+
+export default ReversedTabs;
