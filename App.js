@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import MyNav from './components/App';
+import ReverseTabs from './components/navigation/ReverseTabs';
 export default class App extends React.Component {
   render() {
     return (
-      <MyNav />
+      <ReverseTabs />
     );
   }
 }
