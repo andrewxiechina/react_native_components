@@ -54,10 +54,40 @@ const TabNav = TabNavigator(
       path: '/',
       navigationOptions: {
         title: 'Welcome',
-        tabBarLabel: 'Home',
+        tabBarLabel: 'Transaction',
         tabBarIcon: ({ tintColor, focused }) => (
           <Ionicons
-            name={focused ? 'ios-home' : 'ios-home-outline'}
+            name='ios-leaf'
+            size={26}
+            style={{ color: tintColor }}
+          />
+        ),
+      },
+    },
+    SecondTab: {
+      screen: MyHomeScreen,
+      path: '/',
+      navigationOptions: {
+        title: 'Welcome',
+        tabBarLabel: 'Transaction',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name='logo-javascript'
+            size={26}
+            style={{ color: tintColor }}
+          />
+        ),
+      },
+    },
+    ThirdTab: {
+      screen: MyHomeScreen,
+      path: '/',
+      navigationOptions: {
+        title: 'Welcome',
+        tabBarLabel: 'Transaction',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name='logo-chrome'
             size={26}
             style={{ color: tintColor }}
           />
@@ -71,9 +101,9 @@ const TabNav = TabNavigator(
         title: 'Settings',
         tabBarIcon: ({ tintColor, focused }) => (
           <Ionicons
-            name={focused ? 'ios-settings' : 'ios-settings-outline'}
-            size={26}
-            style={{ color: tintColor }}
+            name='ios-settings'
+            size={30}
+            style={{ color: 'white' }}
           />
         ),
       },
@@ -81,8 +111,20 @@ const TabNav = TabNavigator(
   },
   {
     tabBarPosition: 'bottom',
-    animationEnabled: false,
-    swipeEnabled: false,
+    animationEnabled: true,
+    swipeEnabled: true,
+    tabBarOptions: {
+      activeTintColor: 'white',
+      inactiveTintColor: 'white',
+      activeBackgroundColor: '#006600',
+      inactiveBackgroundColor: '#339900',
+      labelStyle: {
+        fontSize: 12,
+      },
+      style: {
+      },
+    },
+
   }
 );
 
